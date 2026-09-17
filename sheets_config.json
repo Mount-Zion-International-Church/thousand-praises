@@ -1,0 +1,411 @@
+{
+  "languages": {
+    "en": {
+      "label": "English",
+      "native": "English",
+      "color": "blue",
+      "sheet_id": "1H66Vx95UjaJJtEXG7sKzHavqghWH8DrsMO34RCae2F4",
+      "tabs": [
+        {
+          "key": "father",
+          "label": "Father",
+          "icon": "crown",
+          "gid": "1975051249"
+        },
+        {
+          "key": "jesus",
+          "label": "Jesus Christ",
+          "icon": "cross",
+          "gid": "1015437270"
+        },
+        {
+          "key": "holyspirit",
+          "label": "Holy Spirit",
+          "icon": "flame",
+          "gid": "1053564806"
+        },
+        {
+          "key": "psalms",
+          "label": "Psalms",
+          "icon": "book",
+          "gid": "1504366405"
+        },
+        {
+          "key": "proverbs",
+          "label": "Proverbs",
+          "icon": "leaf",
+          "gid": "297334829"
+        },
+        {
+          "key": "genesis",
+          "label": "Genesis",
+          "icon": "leaf2",
+          "gid": "1281370279"
+        },
+        {
+          "key": "revelation",
+          "label": "Revelation",
+          "icon": "eye",
+          "gid": "615306804"
+        },
+        {
+          "key": "angelic",
+          "label": "Angelic Host and Heavenly Things",
+          "icon": "wings",
+          "gid": "347002586"
+        },
+        {
+          "key": "wealth",
+          "label": "Wealth",
+          "icon": "coin",
+          "gid": "434794589"
+        },
+        {
+          "key": "healing",
+          "label": "Healing & Deliverance",
+          "icon": "heart",
+          "gid": "1083031806"
+        },
+        {
+          "key": "prophetic",
+          "label": "Prophetic Praises",
+          "icon": "scroll",
+          "gid": "1891511169"
+        },
+        {
+          "key": "life1",
+          "label": "Life in Christ – 1",
+          "icon": "hands",
+          "gid": "723643856"
+        },
+        {
+          "key": "life2",
+          "label": "Life in Christ – 2",
+          "icon": "hands",
+          "gid": "424584056"
+        },
+        {
+          "key": "life3",
+          "label": "Life in Christ – 3",
+          "icon": "hands",
+          "gid": "1725850285"
+        },
+        {
+          "key": "life4",
+          "label": "Life in Christ – 4",
+          "icon": "hands",
+          "gid": "567177324"
+        },
+        {
+          "key": "godsbody",
+          "label": "God's Body",
+          "icon": "book",
+          "gid": "1737274674"
+        },
+        {
+          "key": "godquestions",
+          "label": "God Questions",
+          "icon": "question",
+          "gid": "1711836724"
+        },
+        {
+          "key": "earthly",
+          "label": "Earthly Things",
+          "icon": "globe",
+          "gid": "1739676446"
+        },
+        {
+          "key": "answeredprayers",
+          "label": "Praising for Answered Prayers",
+          "icon": "star",
+          "gid": "235008594"
+        },
+        {
+          "key": "success",
+          "label": "Success & Victory",
+          "icon": "crown",
+          "gid": "1314168828"
+        },
+        {
+          "key": "righteousness",
+          "label": "Righteousness, Peace & Joy",
+          "icon": "wings",
+          "gid": "422412056"
+        },
+        {
+          "key": "faithhopelove",
+          "label": "Faith, Hope and Love",
+          "icon": "heart",
+          "gid": "1224497667"
+        },
+        {
+          "key": "growth",
+          "label": "Praising God for Growth",
+          "icon": "leaf2",
+          "gid": "240153482"
+        },
+        {
+          "key": "lookwhatlordhasdone",
+          "label": "Look What the Lord Has Done",
+          "icon": "eye",
+          "gid": "1321590653"
+        },
+        {
+          "key": "signswonders",
+          "label": "Signs, Wonders and Miracles",
+          "icon": "flame",
+          "gid": "1735002858"
+        },
+        {
+          "key": "godisgreater",
+          "label": "God Is Greater",
+          "icon": "crown",
+          "gid": "1971302923"
+        },
+        {
+          "key": "mercy",
+          "label": "Mercy of God",
+          "icon": "heart",
+          "gid": "699411816"
+        }
+      ]
+    },
+    "ta": {
+      "label": "Tamil",
+      "native": "தமிழ்",
+      "color": "purple",
+      "sheet_id": "1GWF5gXZqsOmHBfGXDDRJqxA1GMFL31VxMxVf_jEdEK0",
+      "tabs": [
+        {
+          "key": "jesus",
+          "label": "Jesus Christ",
+          "icon": "cross",
+          "gid": "514127299"
+        },
+        {
+          "key": "holyspirit",
+          "label": "Holy Spirit",
+          "icon": "flame",
+          "gid": "485605104"
+        },
+        {
+          "key": "psalms",
+          "label": "Psalms",
+          "icon": "book",
+          "gid": "1623027638"
+        },
+        {
+          "key": "proverbs",
+          "label": "Proverbs",
+          "icon": "leaf",
+          "gid": "497215485"
+        },
+        {
+          "key": "genesis",
+          "label": "Genesis",
+          "icon": "leaf2",
+          "gid": "1664289452"
+        },
+        {
+          "key": "revelation",
+          "label": "Revelation",
+          "icon": "eye",
+          "gid": "436232147"
+        },
+        {
+          "key": "angelic",
+          "label": "Angelic Host and Heavenly Things",
+          "icon": "wings",
+          "gid": "98553673"
+        },
+        {
+          "key": "wealth",
+          "label": "Wealth",
+          "icon": "coin",
+          "gid": "1772167516"
+        },
+        {
+          "key": "healing",
+          "label": "Healing & Deliverance",
+          "icon": "heart",
+          "gid": "0"
+        },
+        {
+          "key": "prophetic",
+          "label": "Prophetic Praises",
+          "icon": "scroll",
+          "gid": "552205105"
+        },
+        {
+          "key": "life1",
+          "label": "Life in Christ – 1",
+          "icon": "hands",
+          "gid": "2117129408"
+        },
+        {
+          "key": "life2",
+          "label": "Life in Christ – 2",
+          "icon": "hands",
+          "gid": "1778086286"
+        },
+        {
+          "key": "life3",
+          "label": "Life in Christ – 3",
+          "icon": "hands",
+          "gid": "1710016740"
+        },
+        {
+          "key": "life4",
+          "label": "Life in Christ – 4",
+          "icon": "hands",
+          "gid": "536218846"
+        },
+        {
+          "key": "godsbody",
+          "label": "God's Body",
+          "icon": "book",
+          "gid": "292950198"
+        },
+        {
+          "key": "godquestions",
+          "label": "God Questions",
+          "icon": "question",
+          "gid": "1262439396"
+        },
+        {
+          "key": "earthly",
+          "label": "Earthly Things",
+          "icon": "globe",
+          "gid": "2050319019"
+        }
+      ]
+    },
+    "hi": {
+      "label": "Hindi",
+      "native": "हिन्दी",
+      "color": "green",
+      "sheet_id": "1qQsg_zFrWa1eMDaWiN-PguZp2lVgodcJhrC7yOmwFb8",
+      "tabs": [
+        {
+          "key": "jesus",
+          "label": "Jesus Christ",
+          "icon": "cross",
+          "gid": "295874112"
+        },
+        {
+          "key": "holyspirit",
+          "label": "Holy Spirit",
+          "icon": "flame",
+          "gid": "490571038"
+        },
+        {
+          "key": "psalms",
+          "label": "Psalms",
+          "icon": "book",
+          "gid": "1380292702"
+        },
+        {
+          "key": "proverbs",
+          "label": "Proverbs",
+          "icon": "leaf",
+          "gid": "1623526848"
+        },
+        {
+          "key": "genesis",
+          "label": "Genesis",
+          "icon": "leaf2",
+          "gid": "1418149324"
+        },
+        {
+          "key": "revelation",
+          "label": "Revelation",
+          "icon": "eye",
+          "gid": "134246043"
+        },
+        {
+          "key": "angelic",
+          "label": "Angelic Host and Heavenly Things",
+          "icon": "wings",
+          "gid": "2074350841"
+        },
+        {
+          "key": "wealth",
+          "label": "Wealth",
+          "icon": "coin",
+          "gid": "1510006636"
+        },
+        {
+          "key": "healing",
+          "label": "Healing & Deliverance",
+          "icon": "heart",
+          "gid": "0"
+        },
+        {
+          "key": "prophetic",
+          "label": "Prophetic Praises",
+          "icon": "scroll",
+          "gid": "1027050535"
+        },
+        {
+          "key": "life1",
+          "label": "Life in Christ – 1",
+          "icon": "hands",
+          "gid": "618936015"
+        },
+        {
+          "key": "life2",
+          "label": "Life in Christ – 2",
+          "icon": "hands",
+          "gid": "914355154"
+        },
+        {
+          "key": "life3",
+          "label": "Life in Christ – 3",
+          "icon": "hands",
+          "gid": "398713479"
+        },
+        {
+          "key": "life4",
+          "label": "Life in Christ – 4",
+          "icon": "hands",
+          "gid": "239107041"
+        },
+        {
+          "key": "godsbody",
+          "label": "God's Body",
+          "icon": "book",
+          "gid": "1434835429"
+        },
+        {
+          "key": "godquestions",
+          "label": "God Questions",
+          "icon": "question",
+          "gid": "237043349"
+        },
+        {
+          "key": "earthly",
+          "label": "Earthly Things",
+          "icon": "globe",
+          "gid": "229216658"
+        }
+      ]
+    }
+  },
+  "comingSoon": [
+    {
+      "code": "kn",
+      "label": "Kannada",
+      "native": "ಕನ்ನಡ"
+    },
+    {
+      "code": "te",
+      "label": "Telugu",
+      "native": "తెలుగు"
+    },
+    {
+      "code": "ml",
+      "label": "Malayalam",
+      "native": "മലയാളം"
+    }
+  ]
+}

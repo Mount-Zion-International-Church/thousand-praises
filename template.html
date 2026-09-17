@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thousand Praises (Preview)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,600&family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600&family=Noto+Serif+Tamil:wght@400;500;600&family=Noto+Serif+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F6F8FB;
+    --surface: #FFFFFF;
+    --ink: #16304F;
+    --ink-soft: #4C6079;
+    --muted: #8A97A8;
+    --line: #E4E9F0;
+    --gold: #B9852F;
+    --gold-bg: #FBF1DF;
+    --blue: #3E7CB1;    --blue-bg: #E4EEF7;
+    --purple: #7B5EA7;  --purple-bg: #EDE7F5;
+    --green: #4C8B6B;   --green-bg: #E5F1EA;
+    --amber: #C98A2E;   --amber-bg: #FAEDDA;
+    --teal: #2E8B84;    --teal-bg: #E1F1EF;
+    --coral: #C15B45;   --coral-bg: #F8E9E5;
+    --radius: 14px;
+    font-size: 16px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg:#F6F8FB; --surface:#FFFFFF; }
+  }
+  :root[data-theme="dark"] { --bg:#F6F8FB; --surface:#FFFFFF; }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  button { font-family: inherit; cursor: pointer; }
+  ::selection { background: var(--gold-bg); color: var(--ink); }
+  .icon { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; display: block; }
+
+  /* ---------------- Header ---------------- */
+  header.top {
+    position: sticky; top: 0; z-index: 30;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.85rem 1.4rem;
+  }
+  .brand { display: flex; align-items: center; gap: 0.6rem; background: none; border: none; padding: 0; }
+  .brand .icon { width: 26px; height: 26px; color: var(--ink); stroke-width: 1.5; }
+  .brand-text { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.15rem; letter-spacing: 0.01em; color: var(--ink); }
+  .crumb { font-size: 0.85rem; color: var(--muted); display: flex; align-items: center; gap: 0.4rem; }
+  .crumb span.sep { color: var(--line); }
+  .crumb button.link { background: none; border: none; color: var(--ink-soft); font-size: 0.85rem; padding: 0; text-decoration: underline; text-underline-offset: 2px; }
+  .home-btn {
+    display: flex; align-items: center; gap: 0.35rem;
+    background: var(--bg); border: 1px solid var(--line); border-radius: 999px;
+    padding: 0.4rem 0.75rem; color: var(--ink-soft); font-size: 0.82rem; font-weight: 500;
+    margin-right: auto; margin-left: 0.9rem;
+  }
+  .home-btn .icon { width: 16px; height: 16px; }
+  .home-btn.hide { display: none; }
+  @media (max-width: 480px) {
+    .home-btn-label { display: none; }
+    .home-btn { padding: 0.45rem; margin-left: 0.6rem; }
+  }
+  .header-right { position: relative; }
+  select:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  /* ---- custom language dropdown ---- */
+  .dropdown { position: relative; }
+  .dropdown-btn {
+    display: flex; align-items: center; gap: 0.5rem;
+    border: 1px solid var(--line); background: var(--bg); color: var(--ink);
+    font-family: "Inter", sans-serif; font-weight: 500; font-size: 0.88rem;
+    padding: 0.45rem 0.9rem; border-radius: 999px;
+  }
+  .dropdown-btn .chev-ic { width: 14px; height: 14px; color: var(--ink-soft); transition: transform 0.15s ease; }
+  .dropdown-btn[aria-expanded="true"] .chev-ic { transform: rotate(180deg); }
+  .dropdown-menu {
+    position: absolute; right: 0; top: calc(100% + 0.5rem);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(22,48,79,0.12);
+    min-width: 13rem; padding: 0.4rem; z-index: 40;
+    display: none;
+  }
+  .dropdown-menu.open { display: block; }
+  .dropdown-item {
+    display: flex; align-items: center; justify-content: space-between; gap: 0.6rem;
+    width: 100%; background: none; border: none; text-align: left;
+    padding: 0.55rem 0.7rem; border-radius: 8px; font-size: 0.92rem; color: var(--ink);
+  }
+  .dropdown-item:hover, .dropdown-item:focus-visible { background: var(--bg); }
+  .dropdown-item .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); opacity: 0; }
+  .dropdown-item.active .dot { opacity: 1; }
+  .dropdown-item .en { color: var(--muted); font-size: 0.78rem; }
+
+  main { max-width: 760px; margin: 0 auto; padding: 0 1.4rem 4rem; }
+
+  /* ---------------- Home / Hero ---------------- */
+  .hero { text-align: center; padding: 3rem 0 1.6rem; }
+  .hero-mark { display: flex; justify-content: center; margin-bottom: 1.1rem; }
+  .hero h1 {
+    font-family: "Fraunces", serif; font-weight: 700; font-optical-sizing: auto;
+    font-size: clamp(2.1rem, 6vw, 3.1rem); margin: 0 0 0.3rem; color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .hero .tag { color: var(--ink-soft); font-size: 1.05rem; margin: 0 0 1.4rem; }
+  .hero blockquote {
+    margin: 0 auto; max-width: 30rem; font-family: "Fraunces", serif; font-style: italic;
+    font-size: 1.15rem; color: var(--ink-soft); line-height: 1.5;
+  }
+  .hero blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color: var(--gold); margin-top: 0.5rem; }
+
+  h2.section-title {
+    font-family: "Fraunces", serif; font-weight: 600; font-size: 1.3rem; margin: 2.6rem 0 1rem;
+    color: var(--ink);
+  }
+  p.section-sub { color: var(--muted); font-size: 0.85rem; margin: -0.7rem 0 1.1rem; }
+
+  .today-grid { display: grid; grid-template-columns: 1fr; gap: 0.9rem; }
+  @media (min-width: 700px) { .today-grid { grid-template-columns: repeat(3, 1fr); } }
+  .today-card {
+    background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--card-fg);
+    border-radius: 12px; padding: 1.1rem 1.15rem; text-align: left; width: 100%; transition: transform 0.15s ease;
+  }
+  .today-card:hover { transform: translateY(-2px); }
+  .today-card .today-lang { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--card-fg); margin-bottom: 0.55rem; }
+  .today-card .today-text { font-family: "Source Serif 4", serif; font-size: 0.95rem; color: var(--ink); line-height: 1.45; margin: 0 0 0.55rem; }
+  .today-card .today-text[lang="ta"], .today-card .today-text[lang="hi"] { font-family: "Noto Serif Tamil", "Noto Serif Devanagari", serif; }
+  .today-card .today-ref { font-size: 0.78rem; color: var(--coral); }
+
+  .lang-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9rem; }
+  .lang-card {
+    background: var(--card-bg); border-radius: var(--radius); padding: 1.3rem 1rem;
+    text-align: center; border: none; transition: transform 0.15s ease;
+  }
+  .lang-card:hover { transform: translateY(-2px); }
+  .lang-card .icon { margin: 0 auto 0.6rem; color: var(--card-fg); width: 26px; height: 26px; }
+  .lang-card .native { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.2rem; color: var(--card-fg); margin-bottom: 0.15rem; }
+  .lang-card .en-name { font-size: 0.82rem; color: var(--ink-soft); }
+  .lang-card .status { font-size: 0.74rem; color: var(--muted); margin-top: 0.5rem; }
+  .lang-card.soon { opacity: 0.55; cursor: default; }
+  .lang-card.soon .status { color: var(--gold); font-weight: 500; }
+
+  .feature-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2.6rem; text-align: center; }
+  .feature { color: var(--ink-soft); }
+  .feature .icon { margin: 0 auto 0.5rem; color: var(--gold); }
+  .feature b { display: block; color: var(--ink); font-size: 0.9rem; font-weight: 600; margin-bottom: 0.15rem; }
+  .feature span { font-size: 0.78rem; color: var(--muted); }
+
+  /* ---------------- Category grid ---------------- */
+  .cat-head { padding: 2rem 0 0.4rem; }
+  .cat-head h1 { font-family: "Fraunces", serif; font-size: 2rem; margin: 0 0 0.2rem; }
+  .cat-head p { color: var(--muted); font-size: 0.92rem; margin: 0; }
+
+  .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.85rem; margin-top: 1.5rem; }
+  .cat-tile {
+    background: var(--card-bg); border-radius: var(--radius); border: none;
+    padding: 1.1rem 0.9rem; text-align: left; transition: transform 0.15s ease;
+  }
+  .cat-tile:not(.soon):hover { transform: translateY(-2px); }
+  .cat-tile .icon { color: var(--card-fg); margin-bottom: 0.6rem; }
+  .cat-tile .label { display: block; font-weight: 600; font-size: 0.92rem; color: var(--ink); line-height: 1.25; margin-bottom: 0.25rem; }
+  .cat-tile .count { font-size: 0.76rem; color: var(--muted); }
+  .cat-tile.soon { opacity: 0.5; cursor: default; }
+  .cat-tile.soon .count { color: var(--gold); font-weight: 500; }
+
+  /* ---------------- List screen ---------------- */
+  .list-head { padding: 1.6rem 0 0.6rem; }
+  .list-head h1 { font-family: "Fraunces", serif; font-size: 1.7rem; margin: 0 0 0.15rem; }
+  .list-head p { color: var(--muted); font-size: 0.88rem; margin: 0; }
+
+  .search-box {
+    display: flex; align-items: center; gap: 0.6rem;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+    padding: 0.6rem 1rem; margin: 1.1rem 0 1.2rem;
+  }
+  .search-box .icon { width: 18px; height: 18px; color: var(--muted); }
+  .search-box input { border: none; outline: none; flex: 1; font-family: "Inter", sans-serif; font-size: 0.95rem; background: transparent; color: var(--ink); }
+  .search-box input::placeholder { color: var(--muted); }
+
+  .entry-row {
+    display: flex; align-items: flex-start; gap: 0.9rem;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    padding: 0.9rem 1rem; margin-bottom: 0.6rem; width: 100%; text-align: left;
+  }
+  .entry-row .num {
+    flex: none; width: 1.8rem; height: 1.8rem; border-radius: 50%;
+    background: var(--gold-bg); color: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 700; font-family: "Inter", sans-serif;
+  }
+  .entry-row .body { min-width: 0; flex: 1; }
+  .entry-row .txt { font-family: "Source Serif 4", serif; font-size: 0.98rem; color: var(--ink); margin: 0 0 0.2rem; line-height: 1.4;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .entry-row[lang="ta"] .txt, .entry-row[lang="hi"] .txt { font-family: "Noto Serif Tamil", "Noto Serif Devanagari", serif; }
+  .entry-row .ref { font-size: 0.78rem; color: var(--coral); }
+  .entry-row .chev { flex: none; align-self: center; color: var(--muted); }
+
+  .empty-note { text-align: center; color: var(--muted); font-size: 0.92rem; padding: 2rem 0; font-style: italic; }
+
+  .pager { display: flex; align-items: center; justify-content: space-between; margin: 1.2rem 0; }
+  .pager-btn {
+    display: flex; align-items: center; gap: 0.4rem; background: var(--surface);
+    border: 1px solid var(--line); border-radius: 999px; padding: 0.5rem 1rem;
+    font-size: 0.85rem; font-weight: 500; color: var(--ink-soft);
+  }
+  .pager-btn:disabled { opacity: 0.35; }
+  .pager-btn .icon { width: 15px; height: 15px; }
+  .pager-info { font-size: 0.8rem; color: var(--muted); }
+
+  /* ---------------- Detail screen ---------------- */
+  .detail-head { display: flex; align-items: center; justify-content: space-between; padding: 1.4rem 0 0.4rem; }
+  .backlink { display: flex; align-items: center; gap: 0.4rem; background: none; border: none; color: var(--ink-soft); font-size: 0.88rem; font-weight: 500; padding: 0; }
+  .backlink .icon { width: 17px; height: 17px; }
+  .favbtn { background: var(--surface); border: 1px solid var(--line); width: 2.4rem; height: 2.4rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .favbtn .icon { color: var(--coral); width: 19px; height: 19px; }
+  .favbtn.active .icon { fill: var(--coral); }
+
+  .verse-card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+    padding: 1.6rem 1.5rem 1.5rem; margin: 1.1rem 0 1.6rem;
+  }
+  .verse-card .kicker {
+    display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem;
+    color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+    margin-bottom: 0.9rem;
+  }
+  .verse-card .kicker .icon { width: 15px; height: 15px; }
+  .verse-card .detail-text {
+    font-family: "Fraunces", serif; font-weight: 600; font-size: 1.5rem; line-height: 1.42;
+    color: var(--ink); margin: 0 0 1.1rem;
+  }
+  .verse-card .detail-text[lang="ta"], .verse-card .detail-text[lang="hi"] { font-family: "Noto Serif Tamil", "Noto Serif Devanagari", serif; font-size: 1.3rem; }
+  .verse-card .verse-ref {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: "Fraunces", serif; font-weight: 600; font-size: 1.02rem; color: var(--coral);
+    padding-top: 0.9rem; border-top: 1px solid var(--line); width: 100%;
+  }
+  .verse-card .verse-ref::before { content: ""; width: 0.6rem; height: 1px; background: var(--coral); display: inline-block; }
+
+  .nav-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.8rem; }
+  .navbtn { display: flex; align-items: center; gap: 0.4rem; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 0.55rem 1.1rem; font-size: 0.88rem; font-weight: 500; color: var(--ink-soft); }
+  .navbtn:disabled { opacity: 0.35; }
+  .navbtn.next { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .navbtn .icon { width: 16px; height: 16px; }
+  .counter { font-size: 0.82rem; color: var(--muted); }
+
+  .action-row { display: flex; justify-content: center; gap: 2.2rem; padding-top: 0.6rem; border-top: 1px solid var(--line); }
+  .actbtn { background: none; border: none; display: flex; flex-direction: column; align-items: center; gap: 0.35rem; color: var(--ink-soft); font-size: 0.78rem; }
+  .actbtn .icon { width: 20px; height: 20px; }
+  .actbtn.done { color: var(--green); }
+  .actbtn:disabled { opacity: 0.5; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 1.4rem; transform: translateX(-50%);
+    background: var(--ink); color: #fff; padding: 0.6rem 1.1rem; border-radius: 999px;
+    font-size: 0.85rem; opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+    z-index: 50; white-space: nowrap;
+  }
+  .toast.show { opacity: 1; }
+
+  .foot-note {
+    max-width: 760px; margin: 3rem auto 0; padding: 1.4rem 1.4rem; color: var(--ink-soft); font-size: 0.85rem; line-height: 1.6;
+    border-top: 1px solid var(--line); text-align: center;
+  }
+  .foot-note .org { font-family: "Fraunces", serif; font-weight: 600; color: var(--ink); font-size: 0.98rem; }
+  .foot-note .overseer { color: var(--muted); font-size: 0.8rem; margin-top: 0.15rem; }
+
+  @media (max-width: 620px) {
+    .lang-grid, .feature-row { grid-template-columns: repeat(2, 1fr); }
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    header.top .crumb { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <button class="brand" id="brandHome">
+    <svg class="icon" viewBox="0 0 24 24"><path d="M12 6.5c-1.8-1.4-4.2-2-6.5-1.7C4.7 4.9 4 5.6 4 6.5v11c0 1 .8 1.6 1.7 1.5 2.2-.3 4.5.3 6.3 1.7 1.8-1.4 4.1-2 6.3-1.7.9.1 1.7-.5 1.7-1.5v-11c0-.9-.7-1.6-1.5-1.7-2.3-.3-4.7.3-6.5 1.7z"/><path d="M12 6.5V20"/></svg>
+    <span class="brand-text">Thousand Praises</span>
+  </button>
+  <button class="home-btn" id="homeBtn" aria-label="Home" title="Home">
+    <svg class="icon" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v9a1 1 0 001 1h10a1 1 0 001-1v-9"/><path d="M10 20v-6h4v6"/></svg>
+    <span class="home-btn-label">Home</span>
+  </button>
+  <div class="crumb" id="crumb"></div>
+  <div class="header-right">
+    <div class="dropdown" id="langDropdown">
+      <button class="dropdown-btn" id="langDropdownBtn" aria-haspopup="true" aria-expanded="false">
+        <span id="langDropdownLabel">English</span>
+        <svg class="icon chev-ic" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="dropdown-menu" id="langDropdownMenu"></div>
+    </div>
+  </div>
+</header>
+
+<main id="main"></main>
+
+<div class="foot-note">
+  <div class="org">Mount Zion International Church, Bangalore</div>
+  <div class="overseer">General Overseer &mdash; Apostle Joyce Peter</div>
+</div>
+
+<div class="toast" id="toast"></div>
+<canvas id="shareCanvas" width="1080" height="1350" style="display:none;"></canvas>
+
+<script id="praises-data" type="application/json">__DATA_JSON__</script>
+<script>
+(function() {
+  var data = JSON.parse(document.getElementById('praises-data').textContent);
+  var main = document.getElementById('main');
+  var crumb = document.getElementById('crumb');
+  var toastEl = document.getElementById('toast');
+  var PAGE_SIZE = 100;
+
+  var ICONS = {
+    crown: '<path d="M4 8l3 3 5-6 5 6 3-3-1.5 10h-13z"/><path d="M6 20h12"/>',
+    cross: '<path d="M12 3v18"/><path d="M7 8h10"/>',
+    flame: '<path d="M12 3c1 3-3 4-3 8a3 3 0 006 0c0-1-.5-2-.5-2 1.5 1 2.5 3 2.5 5a5 5 0 01-10 0c0-4 3-5 5-11z"/>',
+    book: '<path d="M4 5.5C5.6 4.5 8 4 12 5.5 16 4 18.4 4.5 20 5.5v13C18.4 17.5 16 17 12 18.5 8 17 5.6 17.5 4 18.5z"/><path d="M12 5.5v13"/>',
+    leaf: '<path d="M5 19c8-1 13-6 14-14-8 1-13 6-14 14z"/><path d="M5 19c1-4 3-7 6-9"/>',
+    leaf2: '<path d="M12 21s-6-4-6-10a6 6 0 0112 0c0 6-6 10-6 10z"/><path d="M12 21v-8"/>',
+    eye: '<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.6"/>',
+    wings: '<path d="M12 5v15"/><path d="M12 8c-2-3-6-4-9-3 1 4 4 6 9 6z"/><path d="M12 8c2-3 6-4 9-3-1 4-4 6-9 6z"/>',
+    coin: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9"/><path d="M9.5 9.5c0-1 1-1.8 2.5-1.8s2.5.7 2.5 1.6c0 2.4-5 1.4-5 3.8 0 1 1 1.7 2.5 1.7s2.5-.7 2.5-1.7"/>',
+    heart: '<path d="M12 20s-7-4.4-9.5-9C.8 7.4 2.7 4 6 4c2 0 3.6 1.2 4.6 2.5 1-1.3 2.6-2.5 4.6-2.5 3.3 0 5.2 3.4 3.5 7-2.5 4.6-9.7 9-9.7 9z"/>',
+    scroll: '<path d="M6 4h11a2 2 0 012 2v13a2 2 0 00-2-2H6a2 2 0 000 4"/><path d="M6 4a2 2 0 000 4h9"/>',
+    hands: '<path d="M12 3v6"/><path d="M9 9c-2 1-3.5 3-3.5 6 0 4 3 6 6.5 6s6.5-2 6.5-6c0-3-1.5-5-3.5-6"/>',
+    question: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.3a2.5 2.5 0 014.9.7c0 1.7-2.4 1.9-2.4 3.5"/><circle cx="12" cy="16.7" r="0.4" fill="currentColor"/>',
+    globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.5 3.8 6 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-6-3.8-9s1.3-6.5 3.8-9z"/>',
+    search: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.5-4.5"/>',
+    chevron: '<path d="M9 6l6 6-6 6"/>',
+    back: '<path d="M15 6l-6 6 6 6"/>',
+    copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 012-2h10"/>',
+    share: '<circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4"/><path d="M8.2 13.2l7.6 4.4"/>',
+    bookmark: '<path d="M6 4h12v16l-6-4-6 4z"/>',
+    star: '<path d="M12 3l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2L3 9.5l6.4-.6z"/>'
+  };
+  function icon(name, extraClass) {
+    return '<svg class="icon' + (extraClass ? ' ' + extraClass : '') + '" viewBox="0 0 24 24">' + ICONS[name] + '</svg>';
+  }
+
+  var COLOR_CYCLE = ['blue','purple','green','amber','teal','coral'];
+  var LANG_COLOR = { en: 'blue', ta: 'purple', hi: 'green' };
+  var SOON_COLOR = { kn: 'amber', te: 'teal', ml: 'coral' };
+  var LANG_FONT_TAG = { en: 'en', ta: 'ta', hi: 'hi' };
+
+  var favorites = {};
+  try { favorites = JSON.parse(localStorage.getItem('tp_favorites') || '{}'); } catch(e) {}
+  function favKey(lang, sec, n) { return lang + ':' + sec + ':' + n; }
+  function isFav(lang, sec, n) { return !!favorites[favKey(lang, sec, n)]; }
+  function toggleFav(lang, sec, n) {
+    var k = favKey(lang, sec, n);
+    if (favorites[k]) delete favorites[k]; else favorites[k] = true;
+    try { localStorage.setItem('tp_favorites', JSON.stringify(favorites)); } catch(e) {}
+  }
+
+  var state = { screen: 'home', lang: 'en', section: null, query: '', page: 0, idx: 0 };
+
+  function showToast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    setTimeout(function() { toastEl.classList.remove('show'); }, 1800);
+  }
+
+  /* ---------------- language dropdown (custom, in-page) ---------------- */
+  var langBtn = document.getElementById('langDropdownBtn');
+  var langMenu = document.getElementById('langDropdownMenu');
+  var langLabel = document.getElementById('langDropdownLabel');
+
+  function populateLangMenu() {
+    langMenu.innerHTML = '';
+    Object.keys(data.languages).forEach(function(code) {
+      var L = data.languages[code];
+      var item = document.createElement('button');
+      item.className = 'dropdown-item' + (code === state.lang ? ' active' : '');
+      item.innerHTML = '<span class="dot"></span><span style="flex:1;text-align:left;">' + L.native + '</span><span class="en">' + L.label + '</span>';
+      item.addEventListener('click', function() {
+        state.lang = code;
+        closeLangMenu();
+        if (state.screen === 'list' || state.screen === 'detail') {
+          state.section = data.languages[state.lang].sections[0].key;
+          state.screen = 'categories';
+        }
+        render();
+      });
+      langMenu.appendChild(item);
+    });
+    langLabel.textContent = data.languages[state.lang].native;
+  }
+  function openLangMenu() { langMenu.classList.add('open'); langBtn.setAttribute('aria-expanded', 'true'); }
+  function closeLangMenu() { langMenu.classList.remove('open'); langBtn.setAttribute('aria-expanded', 'false'); }
+  langBtn.addEventListener('click', function(ev) {
+    ev.stopPropagation();
+    if (langMenu.classList.contains('open')) closeLangMenu(); else openLangMenu();
+  });
+  document.addEventListener('click', function(ev) {
+    if (!document.getElementById('langDropdown').contains(ev.target)) closeLangMenu();
+  });
+
+  function go(screen, extra) {
+    state.screen = screen;
+    if (extra) Object.assign(state, extra);
+    render();
+    window.scrollTo(0, 0);
+  }
+  document.getElementById('brandHome').addEventListener('click', function() { go('home'); });
+  var homeBtn = document.getElementById('homeBtn');
+  homeBtn.addEventListener('click', function() { go('home'); });
+
+  function renderCrumb() {
+    var parts = [];
+    parts.push('<button class="link" data-go="home">Home</button>');
+    if (state.screen !== 'home') {
+      var L = data.languages[state.lang];
+      parts.push('<span class="sep">/</span><button class="link" data-go="categories">' + L.label + '</button>');
+    }
+    if (state.screen === 'list' || state.screen === 'detail') {
+      var sec = currentSection();
+      parts.push('<span class="sep">/</span><span>' + sec.label + '</span>');
+    }
+    crumb.innerHTML = parts.join(' ');
+    crumb.querySelectorAll('[data-go]').forEach(function(btn) {
+      btn.addEventListener('click', function() { go(btn.getAttribute('data-go')); });
+    });
+  }
+
+  function dayIndexSeed() {
+    var d = new Date();
+    return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000);
+  }
+  function todaysEntryFor(langCode) {
+    var L = data.languages[langCode];
+    var sec = L.sections.find(function(s) { return s.entries && s.entries.length; });
+    if (!sec) return null;
+    var idx = dayIndexSeed() % sec.entries.length;
+    return { section: sec, entry: sec.entries[idx] };
+  }
+
+  function currentSection() {
+    return data.languages[state.lang].sections.find(function(s) { return s.key === state.section; });
+  }
+
+  function render() {
+    populateLangMenu();
+    renderCrumb();
+    homeBtn.classList.toggle('hide', state.screen === 'home');
+    if (state.screen === 'home') renderHome();
+    else if (state.screen === 'categories') renderCategories();
+    else if (state.screen === 'list') renderList();
+    else if (state.screen === 'detail') renderDetail();
+  }
+
+  function renderHome() {
+    var html = '';
+    html += '<section class="hero">';
+    html += '  <div class="hero-mark">' + icon('book').replace('class="icon"', 'class="icon" style="width:46px;height:46px;color:var(--gold)"') + '</div>';
+    html += '  <h1>Thousand Praises</h1>';
+    html += '  <p class="tag">Praise God through His Word</p>';
+    html += '  <blockquote>&ldquo;Let everything that has breath praise the LORD.&rdquo;<cite>Psalm 150:6</cite></blockquote>';
+    html += '</section>';
+
+    html += '<h2 class="section-title" style="margin-top:1.6rem;">Today\u2019s Verse</h2>';
+    html += '<p class="section-sub">A new praise each day, in every language we\u2019ve loaded so far</p>';
+    html += '<div class="today-grid">';
+    Object.keys(data.languages).forEach(function(code) {
+      var t = todaysEntryFor(code);
+      if (!t) return;
+      var c = LANG_COLOR[code];
+      var langTag = LANG_FONT_TAG[code];
+      html += '<button class="today-card" data-today-lang="' + code + '" data-today-n="' + t.entry.n + '" data-today-sec="' + t.section.key + '" style="--card-fg:var(--' + c + ')">';
+      html += '<div class="today-lang">' + data.languages[code].native + '</div>';
+      html += '<p class="today-text" lang="' + langTag + '">' + escapeHtml(t.entry.text) + '</p>';
+      html += '<div class="today-ref">' + escapeHtml(t.entry.ref) + '</div>';
+      html += '</button>';
+    });
+    html += '</div>';
+
+    html += '<h2 class="section-title">Choose your language</h2>';
+    html += '<div class="lang-grid">';
+    Object.keys(data.languages).forEach(function(code) {
+      var L = data.languages[code];
+      var c = LANG_COLOR[code];
+      var loadedCount = L.sections.filter(function(s){ return s.entries; }).length;
+      html += '<button class="lang-card" data-lang="' + code + '" style="--card-bg:var(--' + c + '-bg);--card-fg:var(--' + c + ')">';
+      html += icon('book');
+      html += '<div class="native">' + L.native + '</div>';
+      html += '<div class="en-name">' + L.label + '</div>';
+      html += '<div class="status">' + loadedCount + ' of ' + L.sections.length + ' sections loaded</div>';
+      html += '</button>';
+    });
+    data.comingSoon.forEach(function(cs) {
+      var c = SOON_COLOR[cs.code];
+      html += '<button class="lang-card soon" disabled style="--card-bg:var(--' + c + '-bg);--card-fg:var(--' + c + ')">';
+      html += icon('book');
+      html += '<div class="native">' + cs.native + '</div>';
+      html += '<div class="en-name">' + cs.label + '</div>';
+      html += '<div class="status">Coming soon</div>';
+      html += '</button>';
+    });
+    html += '</div>';
+
+    html += '<div class="feature-row">';
+    html += '<div class="feature">' + icon('book') + '<b>Scripture based</b><span>Rooted in God&rsquo;s Word</span></div>';
+    html += '<div class="feature">' + icon('heart') + '<b>For all believers</b><span>Personal, family, church</span></div>';
+    html += '<div class="feature">' + icon('globe') + '<b>Multiple languages</b><span>Reaching more people</span></div>';
+    html += '<div class="feature">' + icon('star') + '<b>A shared resource</b><span>Free to read and share</span></div>';
+    html += '</div>';
+
+    main.innerHTML = html;
+    main.querySelectorAll('.lang-card[data-lang]').forEach(function(card) {
+      card.addEventListener('click', function() {
+        state.lang = card.getAttribute('data-lang');
+        go('categories');
+      });
+    });
+    main.querySelectorAll('.today-card[data-today-lang]').forEach(function(card) {
+      card.addEventListener('click', function() {
+        var lang = card.getAttribute('data-today-lang');
+        var secKey = card.getAttribute('data-today-sec');
+        var n = parseInt(card.getAttribute('data-today-n'), 10);
+        var sec = data.languages[lang].sections.find(function(s) { return s.key === secKey; });
+        var idx = sec.entries.findIndex(function(e) { return e.n === n; });
+        state.lang = lang;
+        state.section = secKey;
+        go('detail', { idx: idx });
+      });
+    });
+  }
+
+  function renderCategories() {
+    var L = data.languages[state.lang];
+    var html = '';
+    html += '<div class="cat-head"><h1>' + L.native + '</h1><p>Select a category to explore its praises</p></div>';
+    html += '<div class="cat-grid">';
+    L.sections.forEach(function(s, i) {
+      var tileColor = COLOR_CYCLE[i % COLOR_CYCLE.length];
+      if (s.entries) {
+        html += '<button class="cat-tile" data-sec="' + s.key + '" style="--card-bg:var(--' + tileColor + '-bg);--card-fg:var(--' + tileColor + ')">';
+        html += icon(s.icon);
+        html += '<span class="label">' + s.label + '</span>';
+        html += '<span class="count">' + s.entries.length + ' praises</span>';
+        html += '</button>';
+      } else {
+        html += '<button class="cat-tile soon" disabled style="--card-bg:var(--' + tileColor + '-bg);--card-fg:var(--' + tileColor + ')">';
+        html += icon(s.icon);
+        html += '<span class="label">' + s.label + '</span>';
+        html += '<span class="count">Coming soon</span>';
+        html += '</button>';
+      }
+    });
+    html += '</div>';
+    main.innerHTML = html;
+    main.querySelectorAll('.cat-tile[data-sec]').forEach(function(tile) {
+      tile.addEventListener('click', function() {
+        state.section = tile.getAttribute('data-sec');
+        state.query = '';
+        state.page = 0;
+        go('list');
+      });
+    });
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function renderList() {
+    var sec = currentSection();
+    var langTag = LANG_FONT_TAG[state.lang];
+    var q = state.query.trim().toLowerCase();
+    var filtered = sec.entries.filter(function(e) {
+      if (!q) return true;
+      return e.text.toLowerCase().indexOf(q) !== -1 || e.ref.toLowerCase().indexOf(q) !== -1 || String(e.n) === q;
+    });
+
+    var totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+    if (state.page >= totalPages) state.page = totalPages - 1;
+    if (state.page < 0) state.page = 0;
+    var pageStart = state.page * PAGE_SIZE;
+    var pageEntries = filtered.slice(pageStart, pageStart + PAGE_SIZE);
+
+    var html = '';
+    html += '<div class="list-head"><h1>' + sec.label + '</h1><p>' + sec.entries.length + ' praises</p></div>';
+    html += '<div class="search-box">' + icon('search') + '<input id="searchInput" type="text" placeholder="Search praises\u2026" value="' + state.query.replace(/"/g,'&quot;') + '"></div>';
+
+    var pagerHtml = '';
+    if (filtered.length > PAGE_SIZE) {
+      pagerHtml = '<div class="pager">' +
+        '<button class="pager-btn" id="prevPage"' + (state.page === 0 ? ' disabled' : '') + '>' + icon('back') + '<span>Prev</span></button>' +
+        '<span class="pager-info">Praises ' + (pageStart + 1) + '&ndash;' + Math.min(pageStart + PAGE_SIZE, filtered.length) + ' of ' + filtered.length + ' &middot; Page ' + (state.page + 1) + ' of ' + totalPages + '</span>' +
+        '<button class="pager-btn" id="nextPage"' + (state.page >= totalPages - 1 ? ' disabled' : '') + '><span>Next</span>' + icon('chevron') + '</button>' +
+        '</div>';
+    }
+    html += pagerHtml;
+
+    if (!pageEntries.length) {
+      html += '<div class="empty-note">No praises match that search.</div>';
+    } else {
+      pageEntries.forEach(function(e) {
+        var fav = isFav(state.lang, sec.key, e.n);
+        html += '<button class="entry-row" lang="' + langTag + '" data-n="' + e.n + '">';
+        html += '<span class="num">' + e.n + '</span>';
+        html += '<span class="body"><p class="txt">' + escapeHtml(e.text) + '</p><span class="ref">' + escapeHtml(e.ref) + '</span></span>';
+        html += fav ? icon('star', 'chev') : icon('chevron', 'chev');
+        html += '</button>';
+      });
+    }
+    html += pagerHtml;
+    main.innerHTML = html;
+
+    var input = document.getElementById('searchInput');
+    input.addEventListener('input', function() {
+      state.query = input.value;
+      state.page = 0;
+      var pos = input.selectionStart;
+      renderList();
+      var newInput = document.getElementById('searchInput');
+      newInput.focus();
+      newInput.setSelectionRange(pos, pos);
+    });
+    var prevBtn = document.getElementById('prevPage');
+    var nextBtn = document.getElementById('nextPage');
+    if (prevBtn) prevBtn.addEventListener('click', function() { state.page -= 1; renderList(); window.scrollTo(0,0); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { state.page += 1; renderList(); window.scrollTo(0,0); });
+
+    main.querySelectorAll('.entry-row[data-n]').forEach(function(row) {
+      row.addEventListener('click', function() {
+        var n = parseInt(row.getAttribute('data-n'), 10);
+        var idx = sec.entries.findIndex(function(e) { return e.n === n; });
+        go('detail', { idx: idx });
+      });
+    });
+  }
+
+  function renderDetail() {
+    var sec = currentSection();
+    var e = sec.entries[state.idx];
+    var langTag = LANG_FONT_TAG[state.lang];
+    var fav = isFav(state.lang, sec.key, e.n);
+
+    var html = '';
+    html += '<div class="detail-head">';
+    html += '<button class="backlink" id="backToList">' + icon('back') + '<span>Back to list</span></button>';
+    html += '<button class="favbtn' + (fav ? ' active' : '') + '" id="favTop">' + icon('heart') + '</button>';
+    html += '</div>';
+
+    html += '<div class="verse-card">';
+    html += '<div class="kicker">' + icon('book') + '<span>Today\u2019s Verse</span></div>';
+    html += '<p class="detail-text" lang="' + langTag + '">' + escapeHtml(e.text) + '</p>';
+    html += '<div class="verse-ref">' + escapeHtml(e.ref) + '</div>';
+    html += '</div>';
+
+    var atStart = state.idx === 0;
+    var atEnd = state.idx === sec.entries.length - 1;
+    html += '<div class="nav-row">';
+    html += '<button class="navbtn prev" id="prevBtn"' + (atStart ? ' disabled' : '') + '>' + icon('back') + '<span>Previous</span></button>';
+    html += '<span class="counter">' + (state.idx + 1) + ' of ' + sec.entries.length + '</span>';
+    html += '<button class="navbtn next" id="nextBtn"' + (atEnd ? ' disabled' : '') + '><span>Next</span>' + icon('chevron') + '</button>';
+    html += '</div>';
+
+    html += '<div class="action-row">';
+    html += '<button class="actbtn" id="shareBtn">' + icon('share') + '<span>Share</span></button>';
+    html += '<button class="actbtn" id="copyBtn">' + icon('copy') + '<span>Copy</span></button>';
+    html += '<button class="actbtn' + (fav ? ' done' : '') + '" id="saveBtn">' + icon('bookmark') + '<span>' + (fav ? 'Saved' : 'Save') + '</span></button>';
+    html += '</div>';
+
+    main.innerHTML = html;
+
+    document.getElementById('backToList').addEventListener('click', function() { go('list'); });
+    document.getElementById('favTop').addEventListener('click', function() { toggleFav(state.lang, sec.key, e.n); renderDetail(); });
+    document.getElementById('saveBtn').addEventListener('click', function() { toggleFav(state.lang, sec.key, e.n); renderDetail(); showToast(isFav(state.lang, sec.key, e.n) ? 'Saved for later' : 'Removed from saved'); });
+    document.getElementById('prevBtn').addEventListener('click', function() { if (!atStart) go('detail', { idx: state.idx - 1 }); });
+    document.getElementById('nextBtn').addEventListener('click', function() { if (!atEnd) go('detail', { idx: state.idx + 1 }); });
+    document.getElementById('copyBtn').addEventListener('click', function() {
+      var text = e.text + ' \u2014 ' + e.ref;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function() { showToast('Copied'); }).catch(function() { showToast('Could not copy'); });
+      } else { showToast('Copy not supported here'); }
+    });
+    document.getElementById('shareBtn').addEventListener('click', function() {
+      shareEntry(e, langTag);
+    });
+  }
+
+  /* ---------------- branded share image ---------------- */
+  var canvas = document.getElementById('shareCanvas');
+  var ctx = canvas.getContext('2d');
+
+  function wrapText(ctx, text, maxWidth) {
+    var words = text.split(' ');
+    var lines = [];
+    var line = '';
+    for (var i = 0; i < words.length; i++) {
+      var test = line ? line + ' ' + words[i] : words[i];
+      if (ctx.measureText(test).width > maxWidth && line) {
+        lines.push(line);
+        line = words[i];
+      } else {
+        line = test;
+      }
+    }
+    if (line) lines.push(line);
+    return lines;
+  }
+
+  function wrapTextGeneric(ctx, text, maxWidth) {
+    // Works for both space-separated (Latin) and unspaced-ish scripts by falling back to char wrap if needed
+    if (text.indexOf(' ') === -1 && text.length > 20) {
+      var lines = [];
+      var cur = '';
+      for (var i = 0; i < text.length; i++) {
+        var t = cur + text[i];
+        if (ctx.measureText(t).width > maxWidth && cur) { lines.push(cur); cur = text[i]; }
+        else { cur = t; }
+      }
+      if (cur) lines.push(cur);
+      return lines;
+    }
+    return wrapText(ctx, text, maxWidth);
+  }
+
+  function drawShareCard(entry, langTag) {
+    var W = canvas.width, H = canvas.height;
+    var bodyFont = langTag === 'ta' ? '"Noto Serif Tamil"' : (langTag === 'hi' ? '"Noto Serif Devanagari"' : '"Source Serif 4"');
+
+    ctx.clearRect(0, 0, W, H);
+    // background
+    ctx.fillStyle = '#F6F8FB';
+    ctx.fillRect(0, 0, W, H);
+    // inner card
+    var pad = 60;
+    ctx.fillStyle = '#FFFFFF';
+    roundRect(ctx, pad, pad, W - pad * 2, H - pad * 2, 28);
+    ctx.fill();
+    ctx.strokeStyle = '#E4E9F0';
+    ctx.lineWidth = 2;
+    roundRect(ctx, pad, pad, W - pad * 2, H - pad * 2, 28);
+    ctx.stroke();
+
+    var cx = W / 2;
+    var y = pad + 90;
+
+    // brand mark
+    ctx.fillStyle = '#B9852F';
+    ctx.font = '600 30px "Fraunces", serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('\u2724 THOUSAND PRAISES', cx, y);
+    y += 70;
+
+    ctx.strokeStyle = '#E4E9F0';
+    ctx.beginPath(); ctx.moveTo(pad + 80, y); ctx.lineTo(W - pad - 80, y); ctx.stroke();
+    y += 90;
+
+    // kicker
+    ctx.fillStyle = '#B9852F';
+    ctx.font = '600 26px "Inter", sans-serif';
+    ctx.fillText("TODAY'S VERSE", cx, y);
+    y += 70;
+
+    // praise text
+    ctx.fillStyle = '#16304F';
+    ctx.font = '600 46px ' + bodyFont;
+    var maxTextWidth = W - pad * 2 - 100;
+    var lines = wrapTextGeneric(ctx, entry.text, maxTextWidth);
+    lines.forEach(function(line) {
+      ctx.fillText(line, cx, y);
+      y += 60;
+    });
+
+    y += 30;
+    ctx.strokeStyle = '#E4E9F0';
+    ctx.beginPath(); ctx.moveTo(cx - 220, y); ctx.lineTo(cx + 220, y); ctx.stroke();
+    y += 55;
+
+    // reference
+    ctx.fillStyle = '#C15B45';
+    ctx.font = '600 34px "Fraunces", serif';
+    ctx.fillText(entry.ref, cx, y);
+
+    // footer
+    ctx.fillStyle = '#8A97A8';
+    ctx.font = '400 24px "Inter", sans-serif';
+    ctx.fillText('Mount Zion International Church, Bangalore', cx, H - pad - 40);
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function shareEntry(entry, langTag) {
+    var text = entry.text + ' \u2014 ' + entry.ref;
+    var ready = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+    showToast('Preparing image\u2026');
+    ready.then(function() {
+      try {
+        drawShareCard(entry, langTag);
+        canvas.toBlob(function(blob) {
+          if (!blob) { shareTextFallback(text); return; }
+          var file = new File([blob], 'thousand-praises.png', { type: 'image/png' });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            navigator.share({ files: [file], title: 'Thousand Praises', text: text }).catch(function(err) {
+              if (err && err.name !== 'AbortError') shareTextFallback(text);
+            });
+          } else if (navigator.share) {
+            navigator.share({ title: 'Thousand Praises', text: text }).catch(function() {});
+          } else {
+            downloadBlob(blob);
+          }
+        }, 'image/png');
+      } catch (err) {
+        shareTextFallback(text);
+      }
+    });
+  }
+  function shareTextFallback(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function() { showToast('Copied to share'); });
+    } else {
+      showToast('Sharing not supported here');
+    }
+  }
+  function downloadBlob(blob) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = 'thousand-praises.png';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function() { URL.revokeObjectURL(url); }, 2000);
+    showToast('Image downloaded');
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
