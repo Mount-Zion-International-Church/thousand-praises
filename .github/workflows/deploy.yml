@@ -1,0 +1,37 @@
+name: Rebuild and deploy Thousand Praises
+
+on:
+  schedule:
+    # Runs every 3 hours. Adjust the cron below to change frequency
+    # (cron times are UTC). Examples:
+    #   '0 * * * *'      -> every hour
+    #   '0 */3 * * *'    -> every 3 hours (current setting)
+    #   '0 2 * * *'      -> once a day at 2am UTC
+    - cron: '0 */3 * * *'
+  workflow_dispatch: {}   # lets you trigger a rebuild manually from the Actions tab
+  push:
+    branches: [ main ]    # also rebuilds whenever the config or template changes
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build site from Google Sheets
+        run: python3 build_site.py
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
