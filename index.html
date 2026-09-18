@@ -966,19 +966,19 @@
 
     ctx.clearRect(0, 0, W, H);
 
-    // navy-to-deep-navy gradient background, matching the church's identity
+    // soft sky-to-warm-cream gradient, matching the church's poster identity
     var bgGrad = ctx.createLinearGradient(0, 0, 0, H);
-    bgGrad.addColorStop(0, '#1B2C46');
-    bgGrad.addColorStop(1, '#0E1626');
+    bgGrad.addColorStop(0, '#EAF1F8');
+    bgGrad.addColorStop(0.55, '#FBF2E1');
+    bgGrad.addColorStop(1, '#F6E4C8');
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, W, H);
 
-    // soft gold linework rays, top-right corner
     ctx.save();
-    ctx.globalAlpha = 0.12;
-    ctx.strokeStyle = '#D4AF6A';
-    ctx.lineWidth = 2;
-    var sunX = W - 120, sunY = 100;
+    ctx.globalAlpha = 0.14;
+    ctx.strokeStyle = '#C9A24B';
+    ctx.lineWidth = 3;
+    var sunX = W - 140, sunY = 120;
     for (var a = 0; a < 9; a++) {
       var ang = (Math.PI / 9) * a - Math.PI / 2.3;
       ctx.beginPath();
@@ -989,66 +989,55 @@
     ctx.restore();
 
     var cx = W / 2;
-    var y = 110;
+    var y = 95;
 
-    // church logo, if it finished loading
+    // small, quiet church logo — a mark, not the focus
     if (logoImg.complete && logoImg.naturalWidth) {
-      var logoW = 130, logoH = logoW * (logoImg.naturalHeight / logoImg.naturalWidth);
-      ctx.drawImage(logoImg, cx - logoW / 2, y - logoH + 20, logoW, logoH);
-      y += 40;
+      var logoW = 78, logoH = logoW * (logoImg.naturalHeight / logoImg.naturalWidth);
+      ctx.drawImage(logoImg, cx - logoW / 2, y - logoH + 12, logoW, logoH);
+      y += 26;
     }
 
-    // header: church name
-    ctx.fillStyle = '#F4EFE2';
-    ctx.font = '700 38px "Fraunces", serif';
+    ctx.fillStyle = '#16304F';
+    ctx.font = '700 26px "Fraunces", serif';
     ctx.textAlign = 'center';
     ctx.fillText('Mount Zion International Church', cx, y);
-    y += 32;
+    y += 24;
 
-    // thin gold rule with small cross ornament
-    ctx.strokeStyle = '#D4AF6A';
-    ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(cx - 210, y); ctx.lineTo(cx - 20, y); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(cx + 20, y); ctx.lineTo(cx + 210, y); ctx.stroke();
-    ctx.fillStyle = '#D4AF6A';
-    ctx.fillRect(cx - 2, y - 12, 4, 24);
-    ctx.fillRect(cx - 10, y - 5, 20, 4);
-    y += 42;
+    ctx.fillStyle = '#8A97A8';
+    ctx.font = '600 15px "Inter", sans-serif';
+    ctx.save(); ctx.letterSpacing = '2.5px'; ctx.fillText('BANGALORE', cx, y); ctx.restore();
+    y += 46;
 
-    ctx.fillStyle = '#8C9BB5';
-    ctx.font = '600 22px "Inter", sans-serif';
-    ctx.save(); ctx.letterSpacing = '3px'; ctx.fillText('BANGALORE', cx, y); ctx.restore();
-    y += 90;
+    // small quiet badge — a label, not a headline
+    ctx.font = '700 21px "Inter", sans-serif';
+    var badgeText = 'TODAY, LET THIS PRAISE BE YOURS';
+    var badgeW = ctx.measureText(badgeText).width + 60;
+    ctx.fillStyle = 'rgba(201,162,75,0.22)';
+    roundRect(ctx, cx - badgeW / 2, y - 30, badgeW, 44, 22);
+    ctx.fill();
+    ctx.fillStyle = '#8C6A2E';
+    ctx.fillText(badgeText, cx, y - 1);
+    y += 105;
 
-    // headline
-    ctx.font = '700 30px "Fraunces", serif';
-    ctx.fillStyle = '#D4AF6A';
-    var headline = 'Today, Let This Praise Be Yours';
-    var headlineLines = wrapTextGeneric(ctx, headline, W - 220);
-    headlineLines.forEach(function(line) {
-      ctx.fillText(line, cx, y);
-      y += 40;
-    });
-    y += 55;
-
-    // praise text
-    ctx.fillStyle = '#F4EFE2';
-    ctx.font = '600 46px ' + bodyFont;
-    var maxTextWidth = W - 220;
+    // the verse itself — the largest, most prominent element on the card
+    ctx.fillStyle = '#16304F';
+    ctx.font = '600 58px ' + bodyFont;
+    var maxTextWidth = W - 170;
     var lines = wrapTextGeneric(ctx, entry.text, maxTextWidth);
     lines.forEach(function(line) {
       ctx.fillText(line, cx, y);
-      y += 60;
+      y += 74;
     });
 
-    y += 20;
-    ctx.strokeStyle = '#3A4A66';
+    y += 30;
+    ctx.strokeStyle = '#C9A24B';
     ctx.lineWidth = 2;
     ctx.beginPath(); ctx.moveTo(cx - 170, y); ctx.lineTo(cx + 170, y); ctx.stroke();
-    y += 55;
+    y += 58;
 
-    ctx.fillStyle = '#E0A97E';
-    ctx.font = '700 36px "Fraunces", serif';
+    ctx.fillStyle = '#B23A2E';
+    ctx.font = '700 40px "Fraunces", serif';
     ctx.fillText(entry.ref, cx, y);
   }
 
